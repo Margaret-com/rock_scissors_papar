@@ -3,9 +3,12 @@ const paperButton = document.getElementById('paper')
 const scissorsButton = document.getElementById('scissors')
 const resetButton = document.getElementById('resetBtn')
 const form = document.querySelector('.form')
-const loginName = document.getElementById('username')
+const loginName = document.getElementById('name')
 const loginPass = document.getElementById('password')
+const loginUsername = document.getElementById('username')
+const loginEmail = document.getElementById('email')
 const loginButton = document.querySelector('.submitButton')
+const loginRemember = document.getElementById('remember')
 const error_message = document.getElementById('error-message')
 const rock = 'rock'
 const paper = 'paper'
@@ -123,10 +126,12 @@ resetButton.addEventListener('click', () => {
 form.addEventListener('submit', (event) => {
     event.preventDefault()
 
+    
+    
     let errors = []
 
     if(loginName) {
-        errors = getSignupFormErrors(loginName.value, loginPass.value)
+        errors = getSignupFormErrors(loginName.value, loginPass.value, )
     }
     else {
         errors = getLoginFormErrors(loginPass.value)
