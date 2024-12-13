@@ -39,7 +39,8 @@ body {
 
 .container {
     display: flex;
-    position: relative;222
+    position: relative;
+    gap:50px;
 }
 
 #rock {

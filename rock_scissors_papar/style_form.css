@@ -164,7 +164,7 @@ button {
     font-family: inherit;
     border: none;
     position:relative;
-    margin-top: 20px;
+    margin-top: 10px;
     cursor: pointer;
     overflow: hidden;
     z-index: 1;
