@@ -3,6 +3,7 @@ const paperButton = document.getElementById('paper');
 const scissorsButton = document.getElementById('scissors');
 const resetButton = document.getElementById('resetBtn');
 const logout = document.getElementById('logout');
+const allPlayers = document.getElementById('players');
 const rock = 'rock';
 const paper = 'paper';
 const scissors = 'scissors';
@@ -11,6 +12,13 @@ let score = JSON.parse(localStorage.getItem('score')) || {
         losses: 0,
         ties: 0,
 };
+const playerName = document.getElementById('playerName');
+const playerList = document.getElementById('playerList');
+const yourScore = document.getElementById('yourScore')
+let player = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [] ;
+let id = player[player.length-1];
+
+playerName.innerText = `${id.name}`;
 
 results ();
 
@@ -109,19 +117,54 @@ scissorsButton.addEventListener('click', ()=> {
 })
 
 resetButton.addEventListener('click', () => {
-    score.wins = 0;
-    score.losses = 0;
-    score.ties = 0;
-   
-    localStorage.removeItem('score');
-    document.querySelector('.choice').innerHTML = '';
-    document.querySelector('.result').innerHTML = '';
-    results ();
+    let confirmAlert = confirm("Your score will be deleted. Are you sure?");
+
+    if(confirmAlert)
+    {
+        score.wins = 0;
+        score.losses = 0;
+        score.ties = 0;
+    
+        localStorage.removeItem('score');
+        document.querySelector('.choice').innerHTML = '';
+        document.querySelector('.result').innerHTML = '';
+        results ();
+    }
 })
 
 logout.addEventListener('click', ()=>{
+    const userData = {
+        id : id,
+        score : score,
+    }
     const userConfirm = confirm("You will disconnect. Are you sure?");
+
     if(userConfirm){
+        localStorage.setItem('score-user', JSON.stringify(userData));
+        document.querySelector('.score').innerHTML = '';
+        document.querySelector('.choice').innerHTML = '';
+        document.querySelector('.result').innerHTML = '';
         window.location.href = "login.html";
+    }
+})
+
+players.addEventListener('click', () => {
+    
+    if(player.length > 0) {
+        let playerList = player.length
+        alert(`Number of players: ${playerList}`
+        )
+    } else {
+        alert("You are the only one player.");
+    }
+})
+
+yourScore.addEventListener('click', () => {
+    let latestData = JSON.parse(localStorage.getItem('score-user'))
+    
+    if(latestData.id && latestData.score){
+        alert(`Your latest score is: Wins:${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
+    } else {
+        alert("No score found.");
     }
 })
